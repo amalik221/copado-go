@@ -1,23 +1,320 @@
 {
   "name": "copado-go",
-  "displayName": "Copado-Go",
-  "description": "Ship Salesforce changes without leaving your editor",
-  "version": "0.0.1",
+  "displayName": "Copado Go",
+  "description": "Ship Salesforce changes without leaving your editor. Copado's full DevOps stack — CI/CD, CRT, and AI Hub — natively in VS Code.",
+  "version": "0.1.0",
+  "publisher": "ammalik221",
+  "license": "MIT",
+  "icon": "resources/icons/copado-go.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ammalik221/copado-go.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ammalik221/copado-go/issues"
+  },
+  "homepage": "https://github.com/ammalik221/copado-go#readme",
   "engines": {
     "vscode": "^1.85.0"
   },
   "categories": [
-    "Other"
+    "SCM Providers",
+    "Other",
+    "Testing"
   ],
-  "activationEvents": [],
+  "keywords": [
+    "copado",
+    "salesforce",
+    "devops",
+    "cicd",
+    "agentforce",
+    "ai",
+    "deployment",
+    "release-management",
+    "crt",
+    "robotic-testing",
+    "copadocon",
+    "copadocon2025"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "copado-go",
+          "title": "Copado Go",
+          "icon": "resources/icons/activity-bar.svg"
+        }
+      ]
+    },
+    "views": {
+      "copado-go": [
+        {
+          "id": "copado.stories",
+          "name": "User Stories",
+          "icon": "$(book)",
+          "contextualTitle": "Copado Go"
+        },
+        {
+          "id": "copado.pipelines",
+          "name": "Pipelines",
+          "icon": "$(git-branch)",
+          "contextualTitle": "Copado Go"
+        },
+        {
+          "id": "copado.tests",
+          "name": "Tests (CRT)",
+          "icon": "$(beaker)",
+          "contextualTitle": "Copado Go"
+        },
+        {
+          "id": "copado.aiAgents",
+          "name": "AI Agents",
+          "icon": "$(sparkle)",
+          "contextualTitle": "Copado Go"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "copado.stories",
+        "contents": "Welcome to Copado Go!\n\nSign in to get started.\n[Sign In to Copado](command:copado.signIn)\n\n[View Documentation](https://github.com/ammalik221/copado-go#readme)"
+      }
+    ],
     "commands": [
       {
-        "command": "copado-go.helloWorld",
-        "title": "Hello World"
+        "command": "copado.signIn",
+        "title": "Sign In",
+        "category": "Copado Go",
+        "icon": "$(sign-in)"
+      },
+      {
+        "command": "copado.signOut",
+        "title": "Sign Out",
+        "category": "Copado Go",
+        "icon": "$(sign-out)"
+      },
+      {
+        "command": "copado.refresh",
+        "title": "Refresh",
+        "category": "Copado Go",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "copado.stories.create",
+        "title": "Create User Story",
+        "category": "Copado Go",
+        "icon": "$(add)"
+      },
+      {
+        "command": "copado.stories.delete",
+        "title": "Delete User Story",
+        "category": "Copado Go",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "copado.stories.select",
+        "title": "Set as Active Story",
+        "category": "Copado Go",
+        "icon": "$(check)"
+      },
+      {
+        "command": "copado.stories.commit",
+        "title": "Commit Changes",
+        "category": "Copado Go",
+        "icon": "$(git-commit)"
+      },
+      {
+        "command": "copado.stories.validate",
+        "title": "Validate (Dry Run)",
+        "category": "Copado Go",
+        "icon": "$(verified)"
+      },
+      {
+        "command": "copado.stories.promote",
+        "title": "Promote to Next Environment",
+        "category": "Copado Go",
+        "icon": "$(arrow-up)"
+      },
+      {
+        "command": "copado.tests.run",
+        "title": "Run Tests",
+        "category": "Copado Go",
+        "icon": "$(play)"
+      },
+      {
+        "command": "copado.tests.rerunFailed",
+        "title": "Re-run Failed Tests",
+        "category": "Copado Go",
+        "icon": "$(debug-restart)"
+      },
+      {
+        "command": "copado.tests.viewResults",
+        "title": "View Test Results",
+        "category": "Copado Go",
+        "icon": "$(output)"
+      },
+      {
+        "command": "copado.ai.askPlan",
+        "title": "Ask Plan Agent",
+        "category": "Copado Go AI",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "copado.ai.askBuild",
+        "title": "Ask Build Agent",
+        "category": "Copado Go AI",
+        "icon": "$(tools)"
+      },
+      {
+        "command": "copado.ai.askTest",
+        "title": "Ask Test Agent",
+        "category": "Copado Go AI",
+        "icon": "$(beaker)"
+      },
+      {
+        "command": "copado.ai.askRelease",
+        "title": "Ask Release Agent",
+        "category": "Copado Go AI",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "copado.ai.askOperate",
+        "title": "Ask Operate Agent",
+        "category": "Copado Go AI",
+        "icon": "$(pulse)"
+      },
+      {
+        "command": "copado.showOutput",
+        "title": "Show Output Channel",
+        "category": "Copado Go",
+        "icon": "$(output)"
       }
-    ]
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "copado.stories.create",
+          "when": "view == copado.stories",
+          "group": "navigation@1"
+        },
+        {
+          "command": "copado.refresh",
+          "when": "view == copado.stories",
+          "group": "navigation@2"
+        },
+        {
+          "command": "copado.refresh",
+          "when": "view == copado.pipelines",
+          "group": "navigation@1"
+        },
+        {
+          "command": "copado.tests.run",
+          "when": "view == copado.tests",
+          "group": "navigation@1"
+        },
+        {
+          "command": "copado.refresh",
+          "when": "view == copado.tests",
+          "group": "navigation@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "copado.stories.select",
+          "when": "view == copado.stories && viewItem == story",
+          "group": "1_active@1"
+        },
+        {
+          "command": "copado.stories.commit",
+          "when": "view == copado.stories && viewItem == story",
+          "group": "2_actions@1"
+        },
+        {
+          "command": "copado.stories.validate",
+          "when": "view == copado.stories && viewItem == story",
+          "group": "2_actions@2"
+        },
+        {
+          "command": "copado.stories.promote",
+          "when": "view == copado.stories && viewItem == story",
+          "group": "2_actions@3"
+        },
+        {
+          "command": "copado.stories.delete",
+          "when": "view == copado.stories && viewItem == story",
+          "group": "9_destructive@1"
+        },
+        {
+          "command": "copado.tests.rerunFailed",
+          "when": "view == copado.tests && viewItem == testRun",
+          "group": "1_actions@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "copado.stories.select",
+          "when": "false"
+        },
+        {
+          "command": "copado.stories.delete",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Copado Go",
+      "properties": {
+        "copadoGo.apiBaseUrl": {
+          "type": "string",
+          "default": "https://api.copado.com",
+          "description": "Base URL for the Copado API.",
+          "scope": "window"
+        },
+        "copadoGo.aiHubBaseUrl": {
+          "type": "string",
+          "default": "https://ai.copado.com",
+          "description": "Base URL for Copado AI Hub (Agentforce).",
+          "scope": "window"
+        },
+        "copadoGo.crtBaseUrl": {
+          "type": "string",
+          "default": "https://crt.copado.com",
+          "description": "Base URL for Copado Robotic Testing.",
+          "scope": "window"
+        },
+        "copadoGo.autoRefreshSeconds": {
+          "type": "number",
+          "default": 30,
+          "minimum": 0,
+          "maximum": 300,
+          "description": "How often to auto-refresh tree views (in seconds). Set to 0 to disable.",
+          "scope": "window"
+        },
+        "copadoGo.autoSwitchBranch": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically check out the feature branch when selecting a user story.",
+          "scope": "window"
+        },
+        "copadoGo.confirmDestructiveActions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a confirmation dialog before destructive actions (delete, promote to PROD, etc.).",
+          "scope": "window"
+        },
+        "copadoGo.logLevel": {
+          "type": "string",
+          "enum": ["debug", "info", "warn", "error"],
+          "default": "info",
+          "description": "Minimum log level for the Copado Go output channel.",
+          "scope": "window"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -34,15 +331,16 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.120.0",
+    "@types/vscode": "^1.85.0",
     "@types/mocha": "^10.0.10",
-    "@types/node": "22.x",
-    "typescript-eslint": "^8.56.1",
-    "eslint": "^9.39.3",
-    "esbuild": "^0.27.3",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "^9.25.1",
+    "esbuild": "^0.25.3",
     "npm-run-all": "^4.1.5",
-    "typescript": "^5.9.3",
-    "@vscode/test-cli": "^0.0.12",
+    "typescript": "^5.8.3",
+    "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.5.2"
   }
 }
